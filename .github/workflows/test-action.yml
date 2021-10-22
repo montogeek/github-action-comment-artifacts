@@ -17,8 +17,16 @@ jobs:
           name: my-artifact
           path: path/to/artifact/world.txt
       - uses: ./
+        id: message
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           prefix: Hallo
           suffix: Tschuss
+      - name: comment PR
+        uses: unsplash/comment-on-pr@v1.3.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          msg: ${{ steps.message.output.message }}
+          check_for_duplicate_msg: true

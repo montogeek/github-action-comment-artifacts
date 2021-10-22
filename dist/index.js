@@ -8465,15 +8465,17 @@ async function run() {
 
     const prefix = core.getInput('prefix');
     const suffix = core.getInput('suffix');
-    core.info(`${prefix} ${suffix}`);
 
     const message = `
       ${prefix}
-      Artifacts:
+      Artifacts: ${artifacts.data.artifacts.map(artifact => {
+        return `${artifact.name}: [Download](${artifact.archive_download_url})`;
+      })}
       ${suffix}
     `;
 
     core.setOutput('message', message);
+    core.info(message);
   } catch (error) {
     core.setFailed(error.message);
   }
