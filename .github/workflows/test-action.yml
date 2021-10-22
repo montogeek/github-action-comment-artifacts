@@ -13,10 +13,12 @@ jobs:
       - run: echo hello > path/to/artifact/world.txt
 
       - uses: actions/upload-artifact@v2
+        id: 'upload'
         with:
           name: my-artifact
           path: path/to/artifact/world.txt
       - uses: ./
+        needs: [upload]
         id: message
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -28,5 +30,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          msg: ${{ steps.message.output.message }}
+          msg: ${{ steps.message.outputs.message }}
           check_for_duplicate_msg: true
