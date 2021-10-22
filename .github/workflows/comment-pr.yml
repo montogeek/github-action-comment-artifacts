@@ -16,7 +16,6 @@ jobs:
           prefix: Hallo
           suffix: Tschuss
       - name: View context attributes
-        uses: actions/github-script@v5
         with:
           script: echo "${{ github.event.workflow_run }}"
       - name: comment PR
