@@ -14641,20 +14641,12 @@ async function run() {
     const context = github.context;
 
     // octokit.rest.actions.listWorkflowRunArtifacts({
-    //   owner: context.repo.owner,
+    //   owner: context.repository.owner,
     //   repo: context.repo.repo,
     // });
 
     console.log(context);
-    const downloadResponse = await artifactClient.downloadAllArtifacts();
-
-    console.log(downloadResponse)
-
-    // output result
-    for (let response in downloadResponse) {
-      console.log(response.artifactName);
-      console.log(response.downloadPath);
-    }
+    console.log(JSON.stringify(context, null, 2));
 
     const prefix = core.getInput('prefix');
     const suffix = core.getInput('suffix');
@@ -14664,7 +14656,7 @@ async function run() {
       ${prefix}
       Artifacts:
       ${suffix}
-    `
+    `;
 
     core.setOutput('message', message);
   } catch (error) {
