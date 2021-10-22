@@ -8448,16 +8448,13 @@ const github = __nccwpck_require__(5438);
 // most @actions toolkit packages have async methods
 async function run() {
   try {
-    const GITHUB_TOKEN = core.getInput('GITHUB_TOKEN');
+    const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
     const octokit = github.getOctokit(GITHUB_TOKEN);
 
     const context = github.context;
 
-    console.log(context.repo);
-    console.log(context.repository);
-
     const artifacts = await octokit.rest.actions.listWorkflowRunArtifacts({
-      owner: context.repository.owner,
+      owner: context.repo.owner,
       repo: context.repo.repo,
       run_id: context.runId,
     });
