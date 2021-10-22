@@ -8454,12 +8454,14 @@ async function run() {
     const context = github.context;
 
     console.log(context);
+    console.log(context.payload.workflow_run.artifacts_url);
+    console.log('\n\n');
     console.log(JSON.stringify(context, null, 2));
 
     const artifacts = await octokit.rest.actions.listWorkflowRunArtifacts({
       owner: context.repo.owner,
       repo: context.repo.repo,
-      run_id: context.workflow_run.id,
+      run_id: context.payload.workflow_run.id,
     });
 
     console.log(artifacts);
