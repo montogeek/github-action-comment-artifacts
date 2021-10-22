@@ -8477,11 +8477,11 @@ async function run() {
     const { data: comment } = await octokit.rest.issues.createComment({
       owner: context.repo.owner,
       repo: context.repo.repo,
-      issue_number: context.payload.workflow_run.pull_requests.number,
+      issue_number: context.payload.workflow_run.pull_requests[0].number,
       body: message,
     });
     core.info(
-      `Created comment id '${comment.id}' on issue '${context.payload.workflow_run.pull_requests.number}'.`
+      `Created comment id '${comment.id}' on issue '${context.payload.workflow_run.pull_requests[0].number}'.`
     );
     core.setOutput('message', message);
   } catch (error) {
