@@ -4,7 +4,7 @@ on:
     workflows: ["Upload an artifact"]
     types: [completed]
 jobs:
-  push-artifact:
+  comment:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -15,9 +15,7 @@ jobs:
         with:
           prefix: Hallo
           suffix: Tschuss
-      - name: View context attributes
-        with:
-          script: echo "${{ github.event.workflow_run }}"
+      - run: echo "${{ github.event.workflow_run }}"
       - name: comment PR
         uses: unsplash/comment-on-pr@v1.3.0
         env:
