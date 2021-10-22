@@ -19,6 +19,8 @@ async function run() {
     });
 
     console.log(artifacts);
+    console.log(context);
+    console.log(JSON.stringify(context, null, 2));
 
     const prefix = core.getInput('prefix');
     const suffix = core.getInput('suffix');
