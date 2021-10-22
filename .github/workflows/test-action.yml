@@ -15,7 +15,6 @@ jobs:
           name: my-artifact
           path: path/to/artifact/world.txt
       - uses: ./
-        needs: upload
         id: message
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
