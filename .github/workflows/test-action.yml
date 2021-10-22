@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: mkdir -p path/to/artifact
-      - run: echo hellothese > path/to/artifact/world.txt
+      - run: echo hellothsese > path/to/artifact/world.txt
       - uses: actions/upload-artifact@v2
         id: upload
         with:
