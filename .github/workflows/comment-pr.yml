@@ -13,8 +13,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          prefix: Hallo there!
-          suffix: Bye
+          prefix: Hallo
+          suffix: Tschuss
+      - name: View context attributes
+        uses: actions/github-script@v5
+        with:
+          script: echo "${{ github.event.workflow_run }}"
       - name: comment PR
         uses: unsplash/comment-on-pr@v1.3.0
         env:
