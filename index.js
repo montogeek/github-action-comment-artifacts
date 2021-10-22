@@ -1,40 +1,38 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const artifact = require('@actions/artifact');
-const artifactClient = artifact.create();
+const wait = require('./wait');
 
 // most @actions toolkit packages have async methods
 async function run() {
   try {
-    const GITHUB_TOKEN = core.getInput('GITHUB_TOKEN');
-    // const octokit = github.getOctokit(GITHUB_TOKEN);
+    const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+    const octokit = github.getOctokit(GITHUB_TOKEN);
 
     const context = github.context;
 
-    // octokit.rest.actions.listWorkflowRunArtifacts({
-    //   owner: context.repo.owner,
-    //   repo: context.repo.repo,
-    // });
+    await wait(2000);
 
+    const artifacts = await octokit.rest.actions.listWorkflowRunArtifacts({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      run_id: context.runId,
+    });
+
+    console.log(artifacts);
     console.log(context);
-    const downloadResponse = await artifactClient.downloadAllArtifacts();
-
-    // output result
-    for (let response in downloadResponse) {
-      console.log(response.artifactName);
-      console.log(response.downloadPath);
-    }
+    console.log(JSON.stringify(context, null, 2));
 
     const prefix = core.getInput('prefix');
     const suffix = core.getInput('suffix');
-    core.info(`${prefix} ${suffix}`);
 
     const message = `
       ${prefix}
-      Artifacts:
+      Artifacts: ${artifacts.data.artifacts.map(artifact => {
+        return `${artifact.name}: [Download](${artifact.archive_download_url})`;
+      })}
       ${suffix}
-    `
-
+    `;
+    core.info(message);
     core.setOutput('message', message);
   } catch (error) {
     core.setFailed(error.message);
