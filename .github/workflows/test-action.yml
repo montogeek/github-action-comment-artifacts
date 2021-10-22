@@ -18,5 +18,6 @@ jobs:
           path: path/to/artifact/world.txt
       - uses: ./
         with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           prefix: Hallo
           suffix: Tschuss
