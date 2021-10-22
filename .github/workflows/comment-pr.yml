@@ -16,10 +16,9 @@ jobs:
           prefix: Hallo
           suffix: Tschuss
       - name: use output
-        run: |
-          echo $json_var
         env:
           json_var: ${{ github.event.workflow_run }}
+        run: echo $json_var
       - name: comment PR
         uses: unsplash/comment-on-pr@v1.3.0
         env:
