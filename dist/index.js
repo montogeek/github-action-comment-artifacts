@@ -14648,6 +14648,8 @@ async function run() {
     console.log(context);
     const downloadResponse = await artifactClient.downloadAllArtifacts();
 
+    console.log(downloadResponse)
+
     // output result
     for (let response in downloadResponse) {
       console.log(response.artifactName);
