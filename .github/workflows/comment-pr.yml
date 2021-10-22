@@ -7,6 +7,7 @@ jobs:
   push-artifact:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: ./
         id: message
         env:
