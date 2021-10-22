@@ -8273,23 +8273,6 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
-/***/ 4258:
-/***/ ((module) => {
-
-let wait = function (milliseconds) {
-  return new Promise((resolve) => {
-    if (typeof milliseconds !== 'number') {
-      throw new Error('milliseconds not a number');
-    }
-    setTimeout(() => resolve("done!"), milliseconds)
-  });
-};
-
-module.exports = wait;
-
-
-/***/ }),
-
 /***/ 2877:
 /***/ ((module) => {
 
@@ -8461,7 +8444,6 @@ var __webpack_exports__ = {};
 (() => {
 const core = __nccwpck_require__(2186);
 const github = __nccwpck_require__(5438);
-const wait = __nccwpck_require__(4258);
 
 // most @actions toolkit packages have async methods
 async function run() {
@@ -8471,12 +8453,10 @@ async function run() {
 
     const context = github.context;
 
-    await wait(2000);
-
     const artifacts = await octokit.rest.actions.listWorkflowRunArtifacts({
       owner: context.repo.owner,
       repo: context.repo.repo,
-      run_id: context.runId,
+      run_id: context.workflow_run.id,
     });
 
     console.log(artifacts);

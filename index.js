@@ -1,6 +1,5 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const wait = require('./wait');
 
 // most @actions toolkit packages have async methods
 async function run() {
@@ -10,12 +9,10 @@ async function run() {
 
     const context = github.context;
 
-    await wait(2000);
-
     const artifacts = await octokit.rest.actions.listWorkflowRunArtifacts({
       owner: context.repo.owner,
       repo: context.repo.repo,
-      run_id: context.runId,
+      run_id: context.workflow_run.id,
     });
 
     console.log(artifacts);
