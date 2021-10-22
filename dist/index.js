@@ -8453,15 +8453,15 @@ async function run() {
 
     const context = github.context;
 
+    console.log(artifacts);
+    console.log(context);
+    console.log(JSON.stringify(context, null, 2));
+
     const artifacts = await octokit.rest.actions.listWorkflowRunArtifacts({
       owner: context.repo.owner,
       repo: context.repo.repo,
       run_id: context.workflow_run.id,
     });
-
-    console.log(artifacts);
-    console.log(context);
-    console.log(JSON.stringify(context, null, 2));
 
     const prefix = core.getInput('prefix');
     const suffix = core.getInput('suffix');
