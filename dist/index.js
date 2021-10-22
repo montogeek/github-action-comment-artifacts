@@ -8471,6 +8471,9 @@ async function run() {
     `;
     core.info(message);
 
+    console.log(context.payload.workflow_run);
+    console.log(context.payload.workflow_run.pull_requests);
+
     const { data: comment } = await octokit.rest.issues.createComment({
       owner: context.repo.owner,
       repo: context.repo.repo,
@@ -8482,6 +8485,7 @@ async function run() {
     );
     core.setOutput('message', message);
   } catch (error) {
+    core.info(error);
     core.setFailed(error.message);
   }
 }
