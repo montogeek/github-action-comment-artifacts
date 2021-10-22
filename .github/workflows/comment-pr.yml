@@ -15,6 +15,10 @@ jobs:
         with:
           prefix: Hallo
           suffix: Tschuss
+      - name: View context attributes
+        uses: actions/github-script@v5
+        with:
+          script: console.log(github.event.workflow_run)
       - name: comment PR
         uses: unsplash/comment-on-pr@v1.3.0
         env:
