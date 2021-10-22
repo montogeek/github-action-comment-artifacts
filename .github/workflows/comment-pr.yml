@@ -12,7 +12,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          prefix: Hallo
+          prefix: Hallo there!
           suffix: Tschuss
       - name: comment PR
         uses: unsplash/comment-on-pr@v1.3.0
