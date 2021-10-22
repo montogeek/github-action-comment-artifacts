@@ -1,4 +1,4 @@
-name: 'Post comment with artifacts'
+name: 'Post comment to pull request with its artifacts'
 description: 'Post a comment in your PR with the artifacts download URLs'
 inputs:
   prefix:
