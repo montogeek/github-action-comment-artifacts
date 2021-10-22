@@ -9,7 +9,6 @@ async function run() {
 
     const context = github.context;
 
-    console.log(artifacts);
     console.log(context);
     console.log(JSON.stringify(context, null, 2));
 
@@ -18,6 +17,8 @@ async function run() {
       repo: context.repo.repo,
       run_id: context.workflow_run.id,
     });
+
+    console.log(artifacts);
 
     const prefix = core.getInput('prefix');
     const suffix = core.getInput('suffix');
