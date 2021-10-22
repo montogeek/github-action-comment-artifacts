@@ -18,10 +18,13 @@ async function run() {
     const prefix = core.getInput('prefix');
     const suffix = core.getInput('suffix');
 
-    const message = prefix + '\n\n' + '| Name | Action | \n | - | - | \n ';
-    artifacts.data.artifacts.map(artifact => {
-      return `| ${artifact.name} | [Download](https://github.com/${context.repo.owner}/${context.repo.repo}/suites/${context.payload.workflow_run.check_suite_id}/artifacts/${artifact.id}) |`;
-    }) +
+    const message =
+      prefix +
+      '\n\n' +
+      '| Name | Action | \n | - | - | \n ' +
+      artifacts.data.artifacts.map(artifact => {
+        return `| ${artifact.name} | [Download](https://github.com/${context.repo.owner}/${context.repo.repo}/suites/${context.payload.workflow_run.check_suite_id}/artifacts/${artifact.id}) |`;
+      }) +
       '\n\n' +
       suffix;
     core.info(message);
