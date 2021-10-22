@@ -8,10 +8,8 @@ async function run() {
     const octokit = github.getOctokit(GITHUB_TOKEN);
 
     const context = github.context;
-
-    console.log(context);
+    
     console.log(context.payload.workflow_run.artifacts_url);
-    console.log('\n\n');
     console.log(JSON.stringify(context, null, 2));
 
     const artifacts = await octokit.rest.actions.listWorkflowRunArtifacts({
@@ -20,15 +18,13 @@ async function run() {
       run_id: context.payload.workflow_run.id,
     });
 
-    console.log(artifacts);
-
     const prefix = core.getInput('prefix');
     const suffix = core.getInput('suffix');
 
     const message = `
       ${prefix}
       Artifacts: ${artifacts.data.artifacts.map(artifact => {
-        return `${artifact.name}: [Download](${artifact.archive_download_url})`;
+        return `${artifact.name}: [Download](https://github.com/${context.repo.owner}/${context.repo.repo}/suites/${context.payload.workflow_run.check_suite_id}/artifacts/${artifact.id})`;
       })}
       ${suffix}
     `;
