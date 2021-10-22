@@ -1,13 +1,17 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: 'Post comment with artifacts'
+description: 'Post a comment in your PR with the artifacts download URLs'
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
-    required: true
-    default: '1000'
+  prefix:
+    description: Prefix message
+    required: false
+    default: ''
+  suffix:
+    description: Prefix message
+    required: false
+    default: ''
 outputs:
-  time: # output will be available to future steps
-    description: 'The current time after waiting'
+  message:
+    description: 'Comment message'
 runs:
   using: 'node12'
   main: 'dist/index.js'

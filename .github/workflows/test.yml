@@ -8,18 +8,28 @@ on:
 
 jobs:
   # unit tests
-  units:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - run: npm ci
-    - run: npm test
+  # units:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - run: npm ci
+  #   - run: npm test
 
   # test action works running from the graph
   test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+
+    # - run: mkdir -p path/to/artifact
+
+    # - run: echo hello > path/to/artifact/world.txt
+
+    # - uses: actions/upload-artifact@v2
+    #   with:
+    #     name: my-artifact
+    #     path: path/to/artifact/world.txt
     - uses: ./
       with:
-        milliseconds: 1000
+        prefix: Prefix message
+        suffix: Suffix message
