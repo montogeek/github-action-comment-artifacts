@@ -8452,9 +8452,6 @@ async function run() {
     const octokit = github.getOctokit(GITHUB_TOKEN);
 
     const context = github.context;
-    
-    console.log(context.payload.workflow_run.artifacts_url);
-    console.log(JSON.stringify(context, null, 2));
 
     const artifacts = await octokit.rest.actions.listWorkflowRunArtifacts({
       owner: context.repo.owner,
@@ -8473,6 +8470,16 @@ async function run() {
       ${suffix}
     `;
     core.info(message);
+
+    const { data: comment } = await octokit.rest.issues.createComment({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      issue_number: context.payload.workflow_run.pull_requests.number,
+      body: message,
+    });
+    core.info(
+      `Created comment id '${comment.id}' on issue '${context.payload.workflow_run.pull_requests.number}'.`
+    );
     core.setOutput('message', message);
   } catch (error) {
     core.setFailed(error.message);

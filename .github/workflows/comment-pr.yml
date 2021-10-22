@@ -13,12 +13,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          prefix: Hallo
-          suffix: Tschuss
-      - name: comment PR
-        uses: unsplash/comment-on-pr@v1.3.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          msg: ${{ steps.message.outputs.message }}
-          check_for_duplicate_msg: true
+          prefix: Find your attachments below
